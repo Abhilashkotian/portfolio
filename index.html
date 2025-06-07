@@ -1,470 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Abhilash A Kotian - Portfolio</title>
-<style>
-  /* Google Font */
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abhilash A Kotian | Portfolio</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Poppins', sans-serif; background: #121212; color: #e0e0e0; overflow-x: hidden; }
+    section { padding: 80px 10% 60px; }
+    h2.section-title { font-size: 2.2rem; color: #00FFFF; margin-bottom: 20px; border-left: 5px solid #00e3aa; padding-left: 15px; }
+    p.section-text { color: #ccc; font-size: 1.1rem; line-height: 1.6; }
 
-  /* Reset and base */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-  body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #121212;
-    color: #e0e0e0;
-    line-height: 1.6;
-  }
-  a {
-    color: #00FFFF;
-    text-decoration: none;
-  }
-  a:hover {
-    color: #39FF14;
-  }
+    /* Hero Section */
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-around; padding: 0 5%; background: #1a1a1a; flex-wrap: wrap; gap: 30px; }
+    .hero-img-container { width: 300px; height: 300px; overflow: hidden; border-radius: 50%; border: 5px solid #00e3aa; }
+    .hero-img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .hero-img-container:hover img { transform: scale(1.1); }
+    .hero-right { max-width: 600px; text-align: center; }
+    .hero-right h1 { font-size: 2.8rem; color: #00FFFF; margin-bottom: 10px; }
+    .hero-right p { font-size: 1.2rem; color: #ccc; margin-bottom: 30px; }
+    .menu-btn { padding: 12px 24px; background: #00e3aa; color: #121212; border: none; border-radius: 30px; cursor: pointer; font-size: 1rem; transition: background 0.3s; }
+    .menu-btn:hover { background: #00c399; }
 
-  /* Navbar */
-  nav {
-    background: #1a1a1a;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 100;
-    border-bottom: 1px solid #333;
-  }
-  nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-  }
-  nav ul li {
-    margin: 0 15px;
-  }
-  nav ul li a {
-    font-weight: 500;
-    color: #e0e0e0;
-    padding: 6px 8px;
-    transition: color 0.3s;
-  }
-  nav ul li a:hover {
-    color: #00FFDD;
-  }
+    /* Menu Overlay */
+    .menu-overlay { position: fixed; top: 0; left: 0; height: 100vh; width: 100%; background: rgba(18,18,18,0.95); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 999; }
+    .menu-overlay.active { display: flex; }
+    .menu-overlay a { font-size: 1.5rem; margin: 15px 0; color: #e0e0e0; text-decoration: none; transition: color 0.2s; }
+    .menu-overlay a:hover { color: #00e3aa; }
+    .close-btn { position: absolute; top: 30px; right: 40px; font-size: 2rem; color: #e0e0e0; cursor: pointer; }
 
-  /* Sections */
-  section {
-    padding: 80px 20px;
-    margin-top: 40px;
-  }
-  #home {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: linear-gradient(135deg, #121212, #1a1a1a);
-    height: 100vh;
-    padding: 0 20px;
-    margin-top: -40px;
-  }
-  #home h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    color: #00FFFF;
-  }
-  #home p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: #ccc;
-  }
-  .btn {
-    display: inline-block;
-    padding: 10px 25px;
-    background: #00FFDD;
-    color: #121212;
-    font-weight: 500;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s;
-    text-decoration: none;
-  }
-  .btn:hover {
-    background: #39FF14;
-  }
+    /* About Section */
+    .about-container { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; align-items: flex-start; }
+    .about-text { flex: 1 1 400px; max-width: 500px; }
+    .about-images-grid { flex: 1 1 400px; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); grid-auto-rows: 150px; gap: 15px; }
+    .about-images-grid div { overflow: hidden; border-radius: 12px; }
+    .about-images-grid img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    .about-images-grid img:hover { transform: scale(1.05); }
+    .img-tall { grid-row: span 2; }
+    .img-wide { grid-column: span 2; }
 
-  /* About */
-  #about {
-    background-color: #1e1e1e;
-  }
-  #about h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #00FFFF;
-  }
-  #about p {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 1.1rem;
-    color: #ccc;
-  }
+    /* Education */
+    .edu-cards { display: grid; grid-template-columns: 1fr; gap: 25px; margin-top: 30px; }
+    .edu-card { background: #1e1e1e; border-left: 5px solid #00e3aa; border-radius: 16px; padding: 25px; }
+    .edu-card h3 { font-size: 1.2rem; margin-bottom: 8px; color: #00FFFF; }
+    .edu-card p { margin: 6px 0; font-size: 0.95rem; color: #ccc; }
 
-  /* Education */
-  #education h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #00FFFF;
-  }
-  .education-list {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .education-item {
-    margin-bottom: 15px;
-  }
-  .education-item h3 {
-    font-size: 1.1rem;
-    color: #fff;
-  }
-  .education-item p {
-    margin-left: 10px;
-    color: #ccc;
-    font-size: 1rem;
-  }
+    /* Carousel */
+    .carousel-wrapper { position: relative; max-width: 800px; margin: 40px auto; overflow: hidden; }
+    .carousel { display: flex; transition: transform 0.5s ease; }
+    .carousel img { width: 100%; border-radius: 10px; margin-right: 20px; flex: 0 0 100%; }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: #00e3aa; border: none; padding: 10px; cursor: pointer; color: #121212; z-index: 1000; }
+    .carousel-btn.prev { left: 0; }
+    .carousel-btn.next { right: 0; }
 
-  /* Projects */
-  #projects h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #00FFFF;
-  }
-  .projects-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-  .project-item {
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 20px;
-    flex: 1 1 300px;
-    max-width: 350px;
-  }
-  .project-item h3 {
-    margin-bottom: 10px;
-    color: #00FFFF;
-  }
-  .project-item p {
-    margin-bottom: 10px;
-    color: #ccc;
-    font-size: 0.95rem;
-  }
-  .project-item .tech {
-    font-style: italic;
-    font-size: 0.9rem;
-    color: #aaa;
-  }
+    /* Footer */
+    .site-footer { text-align: center; padding: 20px 0; background: #1a1a1a; color: #777; font-size: 0.95rem; }
 
-  /* Skills */
-  #skills h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #00FFFF;
-  }
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .skills-grid div {
-    background: #1e1e1e;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #333;
-  }
-  .skills-grid div h4 {
-    margin-bottom: 10px;
-    color: #00DDFF;
-  }
-  .skills-grid div ul {
-    list-style: none;
-    padding-left: 0;
-  }
-  .skills-grid div li {
-    margin-bottom: 6px;
-    color: #ccc;
-    font-size: 0.95rem;
-  }
-
-  /* Certifications */
-  #certifications {
-    background-color: #1e1e1e;
-  }
-  #certifications h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #00FFFF;
-  }
-  .carousel {
-    position: relative;
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  .slide {
-    display: none;
-  }
-  .slide img {
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  .active-slide {
-    display: block;
-  }
-  /* Arrows */
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 12px;
-    margin-top: -22px;
-    color: #fff;
-    font-weight: bold;
-    font-size: 22px;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-    background-color: rgba(0,0,0,0.5);
-  }
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-  .prev:hover, .next:hover {
-    background-color: rgba(0,255,221,0.8);
-    color: #121212;
-  }
-  .caption {
-    background-color: rgba(0,0,0,0.6);
-    color: #fff;
-    padding: 8px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    font-size: 0.9rem;
-    border-radius: 0 0 8px 8px;
-  }
-
-  /* Contact */
-  #contact h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #00FFFF;
-  }
-  #contact .contact-info {
-    text-align: center;
-    font-size: 1rem;
-  }
-  #contact .contact-info a {
-    color: #00FFDD;
-  }
-  #contact .contact-info a:hover {
-    color: #39FF14;
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 10px;
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #777;
-  }
-
-  /* Media Queries */
-  @media (max-width: 768px) {
-    #home h1 {
-      font-size: 2.5rem;
+    @media (max-width: 768px) {
+      .hero { flex-direction: column; text-align: center; }
+      .hero-img-container { width: 200px; height: 200px; }
+      .hero-right h1 { font-size: 2rem; }
+      .hero-right p { font-size: 1rem; }
+      .about-images-grid { grid-auto-rows: 130px; }
+      .menu-overlay a { font-size: 1.2rem; }
     }
-    .project-item {
-      max-width: 100%;
-    }
-    .skills-grid {
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-    nav ul {
-      flex-wrap: wrap;
-    }
-    nav ul li {
-      margin: 5px;
-    }
-  }
-</style>
+  </style>
 </head>
 <body>
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-img-container"><img src="herosec.jpg" alt="Abhilash A Kotian"></div>
+    <div class="hero-right"><h1>Hello, I'm Abhilash A Kotian</h1><p>Aspiring Data Scientist | Python & ML Enthusiast</p><button class="menu-btn" onclick="openMenu()">Menu</button></div>
+  </section>
 
-<nav>
-  <ul>
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#certifications">Certifications</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<section id="home">
-  <div>
-    <h1>Abhilash A Kotian</h1>
-    <p>Aspiring Data Scientist & Data Enthusiast</p>
-    <a href="#contact" class="btn">Contact Me</a>
+  <div class="menu-overlay" id="menuOverlay">
+    <div class="close-btn" onclick="closeMenu()">×</div>
+    <a href="#about">About</a><a href="#education">Education</a><a href="#certificates-carousel">Certificates</a><a href="#contact">Contact</a>
   </div>
-</section>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p>Driven and passionate Data Science undergraduate, eager to take on new challenges and apply analytical skills. I strive to contribute meaningfully to innovative tech projects and collaborate with forward-thinking teams.</p>
-</section>
+  <!-- About -->
+  <section id="about"><h2 class="section-title">About Me</h2><div class="about-container"><div class="about-text"><p class="section-text">I'm Abhilash A Kotian, a Data Science undergraduate at AIET. Passionate about ML, AI, and turning data into decisions. Outside tech, I enjoy trekking, traveling, and coding challenges.</p></div><div class="about-images-grid"><div class="img-tall"><img src="abhilash.jpg" alt="Abhilash"></div><div class="img-wide"><img src="teamphoto.jpg" alt="Team"></div></div></div></section>
 
-<section id="education">
-  <h2>Education</h2>
-  <div class="education-list">
-    <div class="education-item">
-      <h3>Alva’s Institute of Engineering and Technology<br><span style="font-weight: 300;">B.E. in Data Science (2022 - 2026)</span></h3>
-      <p>GPA: 4.01 / 5<br>Coursework: Machine Learning, Natural Language Processing, Data Structures and Algorithms</p>
-    </div>
-    <div class="education-item">
-      <h3>Vikaas Pre-University College<br><span style="font-weight: 300;">Pre-University (PCMB, 2020 - 2022)</span></h3>
-      <p>Percentage: 87%<br>Coursework: Physics, Chemistry, Mathematics, Biology</p>
-    </div>
-    <div class="education-item">
-      <h3>Popular English Medium High School, Mangalore<br><span style="font-weight: 300;">SSLC (2018 - 2020)</span></h3>
-      <p>Percentage: 95%</p>
-    </div>
-  </div>
-</section>
+  <!-- Education -->
+  <section id="education"><h2 class="section-title">Education</h2><div class="edu-cards"><div class="edu-card"><h3>AIET, B.E. Data Science</h3><p>2022 - 2026 | GPA: 4.01/5</p></div><div class="edu-card"><h3>Vikaas Pre-University College, PUC PCMB</h3><p>2020 - 2022 | 87%</p></div><div class="edu-card"><h3>Popular English Medium HS</h3><p>2018 - 2020 | 95%</p></div></div></section>
 
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="projects-grid">
-    <div class="project-item">
-      <h3>Placement Management System</h3>
-      <p>A comprehensive system to manage university placement drives and student records. It features a chatbot to assist students and includes OCR functionality to scan academic scores for automatic uploads.</p>
-      <p class="tech">Tech: Python, Firebase, Chatbot API, OCR (Tesseract)</p>
-    </div>
-    <div class="project-item">
-      <h3>Heart Disease Diagnosis System</h3>
-      <p>An ML-based model to predict heart disease risk using clinical data. Visualized health indicators and evaluated model accuracy (ROC-AUC). Completed project demonstrating medical data analysis and visualization.</p>
-      <p class="tech">Tech: Python, Scikit-learn, Pandas, Matplotlib</p>
-    </div>
-  </div>
-</section>
+  <!-- Certificates Carousel -->
+  <section id="certificates-carousel"><h2 class="section-title">Certificates Preview</h2><div class="carousel-wrapper"><div class="carousel"><img src="cert1.jpg" alt="Cert1"><img src="cert2.jpg" alt="Cert2"><img src="cert3.jpg" alt="Cert3"></div><button class="carousel-btn prev">&#10094;</button><button class="carousel-btn next">&#10095;</button></div></section>
 
-<section id="skills">
-  <h2>Skills &amp; Tools</h2>
-  <div class="skills-grid">
-    <div>
-      <h4>Programming Languages</h4>
-      <ul>
-        <li>Python</li>
-        <li>C / C++</li>
-        <li>Java</li>
-        <li>SQL</li>
-        <li>HTML, CSS, JavaScript</li>
-      </ul>
-    </div>
-    <div>
-      <h4>Tools &amp; Platforms</h4>
-      <ul>
-        <li>Git & GitHub</li>
-        <li>Power BI</li>
-        <li>Tableau</li>
-        <li>Microsoft Excel</li>
-        <li>MySQL</li>
-        <li>TensorFlow</li>
-        <li>Agile & SDLC</li>
-      </ul>
-    </div>
-    <div>
-      <h4>Soft Skills</h4>
-      <ul>
-        <li>Problem Solving</li>
-        <li>Communication</li>
-        <li>Teamwork</li>
-        <li>Proactive</li>
-        <li>Resourcefulness</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  <!-- Contact -->
+  <section id="contact"><h2 class="section-title">Let's Connect</h2><div style="text-align:center;"><p>Email: <a href="mailto:abhilashkotian08@gmail.com">abhilashkotian08@gmail.com</a></p><p>Phone: <a href="tel:+919901170203">+91 9901170203</a></p></div></section>
 
-<section id="certifications">
-  <h2>Certifications</h2>
-  <div class="carousel">
-    <div class="slide active-slide">
-      <img src="https://via.placeholder.com/600x300/333333/00FFDD?text=Certificate+1" alt="Certificate 1">
-      <div class="caption">Generative AI: Introduction and Applications (Coursera)</div>
-    </div>
-    <div class="slide">
-      <img src="https://via.placeholder.com/600x300/333333/00FFDD?text=Certificate+2" alt="Certificate 2">
-      <div class="caption">Problem Solving Through Programming in C (NPTEL)</div>
-    </div>
-    <div class="slide">
-      <img src="https://via.placeholder.com/600x300/333333/00FFDD?text=Certificate+3" alt="Certificate 3">
-      <div class="caption">Internet of Things (NPTEL)</div>
-    </div>
-    <a class="prev">&#10094;</a>
-    <a class="next">&#10095;</a>
-  </div>
-</section>
+  <!-- Footer -->
+  <footer class="site-footer">© 2025 Abhilash A Kotian. All rights reserved.</footer>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <div class="contact-info">
-    <p>Email: <a href="mailto:abhilashkotian08@gmail.com">abhilashkotian08@gmail.com</a></p>
-    <p>Phone: <a href="tel:+919901170203">+91 9901170203</a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/abhilash-a-kotian" target="_blank">linkedin.com/in/abhilash-a-kotian</a></p>
-    <p>GitHub: <a href="https://github.com/abhilashkotian08" target="_blank">github.com/abhilashkotian08</a></p>
-  </div>
-</section>
-
-<footer>
-  &copy; 2025 Abhilash A Kotian. All rights reserved.
-</footer>
-
-<script>
-  // Carousel functionality
-  let slideIndex = 0;
-  const slides = document.getElementsByClassName("slide");
-  const totalSlides = slides.length;
-  document.querySelector('.next').addEventListener('click', function(){
-    changeSlide(1);
-  });
-  document.querySelector('.prev').addEventListener('click', function(){
-    changeSlide(-1);
-  });
-  function changeSlide(direction) {
-    slides[slideIndex].classList.remove('active-slide');
-    slideIndex = (slideIndex + direction + totalSlides) % totalSlides;
-    slides[slideIndex].classList.add('active-slide');
-  }
-</script>
-
+  <script>
+    function openMenu(){document.getElementById('menuOverlay').classList.add('active');}
+    function closeMenu(){document.getElementById('menuOverlay').classList.remove('active');}
+    const carousel=document.querySelector('.carousel'),next=document.querySelector('.next'),prev=document.querySelector('.prev');let offset=0;
+    next.addEventListener('click',()=>{offset-=100;if(Math.abs(offset)>=300)offset=0;carousel.style.transform=`translateX(${offset}%)`;});
+    prev.addEventListener('click',()=>{offset+=100;if(offset>0)offset=-200;carousel.style.transform=`translateX(${offset}%)`;});
+  </script>
 </body>
 </html>
