@@ -1,49 +1,406 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abhilash Kotian | Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abhi's Portfolio</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fdfdfd;
+      color: #222;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: #ffffff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      animation: slideDown 0.6s ease forwards;
+    }
+    @keyframes slideDown {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    header h1 {
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: #007acc;
+      cursor: default;
+    }
+    nav {
+      margin-top: 12px;
+    }
+    nav a {
+      color: #007acc;
+      text-decoration: none;
+      margin: 0 18px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: #007acc;
+      transition: width 0.3s;
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+    }
+    nav a:hover, nav a:focus {
+      color: #005a9e;
+    }
+    nav a:hover::after, nav a:focus::after {
+      width: 100%;
+    }
+    main {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    section {
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation-fill-mode: forwards;
+      animation-duration: 0.7s;
+      animation-timing-function: ease-out;
+    }
+    section:nth-child(2) { animation-name: fadeUp; animation-delay: 0.2s; }
+    section:nth-child(3) { animation-name: fadeUp; animation-delay: 0.4s; }
+    section:nth-child(4) { animation-name: fadeUp; animation-delay: 0.6s; }
+    section:nth-child(5) { animation-name: fadeUp; animation-delay: 0.8s; }
+    section:nth-child(6) { animation-name: fadeUp; animation-delay: 1s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    h2 {
+      font-size: 1.9rem;
+      margin-bottom: 25px;
+      border-bottom: 3px solid #007acc;
+      display: inline-block;
+      padding-bottom: 6px;
+      color: #007acc;
+    }
+    /* About Me */
+    #about {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 30px;
+    }
+    #about img {
+      width: 280px;
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+      flex-shrink: 0;
+      object-fit: cover;
+      aspect-ratio: 1/1;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    #about img:hover {
+      transform: scale(1.05);
+    }
+    #about div {
+      flex: 1;
+      font-size: 1.1rem;
+      color: #333;
+      min-width: 280px;
+    }
+
+    /* Education & Experience Lists */
+    .list-item {
+      margin-bottom: 18px;
+      padding-left: 15px;
+      border-left: 4px solid #007acc;
+    }
+    .list-item h3 {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      color: #005a9e;
+    }
+    .list-item p {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 3px;
+    }
+    .date {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    /* Projects */
+    #projects .project-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+    .project-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .project-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      flex-shrink: 0;
+      transition: filter 0.3s ease;
+    }
+    .project-card:hover img {
+      filter: brightness(0.9);
+    }
+    .project-content {
+      padding: 15px 20px;
+      flex-grow: 1;
+    }
+    .project-content h3 {
+      margin-bottom: 10px;
+      color: #007acc;
+      font-size: 1.25rem;
+    }
+    .project-content p {
+      font-size: 1rem;
+      color: #444;
+    }
+
+    /* Skills */
+    #skills ul {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-left: 0;
+    }
+    #skills li {
+      background: #007acc;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 22px;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 3px 7px rgba(0,0,0,0.12);
+      user-select: none;
+      transition: background-color 0.3s ease;
+      cursor: default;
+    }
+    #skills li:hover {
+      background: #005a9e;
+    }
+
+    /* Contact */
+    #contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    #contact input, #contact textarea {
+      padding: 14px 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+    #contact input:focus, #contact textarea:focus {
+      border-color: #007acc;
+      outline: none;
+      box-shadow: 0 0 6px #007acc88;
+    }
+    #contact button {
+      background: #007acc;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    #contact button:hover {
+      background: #005a9e;
+    }
+    #contact button:active {
+      background: #004080;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #666;
+      font-size: 0.9rem;
+      border-top: 1px solid #ddd;
+      background-color: #fff;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #about {
+        flex-direction: column;
+        text-align: center;
+      }
+      #about div {
+        font-size: 1rem;
+      }
+      nav a {
+        margin: 0 10px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Hi, I'm Abhilash Kotian</h1>
-        <img src="assets/images/profile.jpg" alt="Abhilash's Photo" class="profile-img">
-        <p>Data Science undergraduate | ML Enthusiast | Open Source Contributor</p>
-    </header>
+
+  <header>
+    <h1>Abhi's Portfolio</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
     <section id="about">
+      <img src="https://via.placeholder.com/280.png?text=Your+Photo" alt="Abhi's photo" loading="lazy" />
+      <div>
         <h2>About Me</h2>
-        <p>I’m a passionate Data Science student with hands-on experience in ML, NLP, and web technologies.</p>
+        <p>
+          Hi! I'm Abhi, an aspiring data scientist passionate about extracting meaningful insights from data. Skilled in Python, machine learning, and data visualization. I love tackling real-world problems through data-driven solutions.
+        </p>
+      </div>
     </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <div class="list-item">
+        <h3>Bachelor of Science in Computer Science</h3>
+        <p><strong>University of XYZ</strong></p>
+        <p class="date">2019 - 2023</p>
+        <p>Graduated with First Class Honors, focusing on data analysis and software development.</p>
+      </div>
+      <div class="list-item">
+        <h3>High School</h3>
+        <p><strong>ABC High School</strong></p>
+        <p class="date">2017 - 2019</p>
+        <p>Completed senior secondary with science stream, scoring 90% overall.</p>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="list-item">
+        <h3>Data Science Intern</h3>
+        <p><strong>Tech Solutions Ltd.</strong></p>
+        <p class="date">June 2022 - August 2022</p>
+        <p>Worked on predictive analytics models, improving accuracy by 12% and automating data pipelines using Python and SQL.</p>
+      </div>
+      <div class="list-item">
+        <h3>Research Assistant</h3>
+        <p><strong>University of XYZ</strong></p>
+        <p class="date">Jan 2021 - May 2022</p>
+        <p>Assisted in research on natural language processing and sentiment analysis, co-authored a paper published in a peer-reviewed journal.</p>
+      </div>
+    </section>
+
     <section id="projects">
-        <h2>Projects</h2>
-        <div class="project-card">
-            <img src="assets/images/project1.jpg" alt="Project 1">
-            <h3>Placement Management System</h3>
-            <p>Helps manage campus placements with chatbot support and OCR upload.</p>
+      <h2>Projects</h2>
+      <div class="project-list">
+        <div class="project-card" tabindex="0">
+          <img src="https://via.placeholder.com/400x170.png?text=Heart+Disease+Prediction" alt="Heart Disease Prediction Project" loading="lazy" />
+          <div class="project-content">
+            <h3>Heart Disease Prediction</h3>
+            <p>Built an ML model predicting heart disease with 85% accuracy using patient datasets, implemented feature engineering and model tuning.</p>
+          </div>
         </div>
-        <div class="project-card">
-            <img src="assets/images/project2.jpg" alt="Project 2">
-            <h3>Heart Disease Diagnosis</h3>
-            <p>Predicts heart disease risk using ML and visualizations.</p>
+        <div class="project-card" tabindex="0">
+          <img src="https://via.placeholder.com/400x170.png?text=Chatbot+NLP" alt="Chatbot NLP Project" loading="lazy" />
+          <div class="project-content">
+            <h3>Chatbot with NLP</h3>
+            <p>Developed a customer service chatbot using NLTK and rule-based techniques, handling FAQs efficiently.</p>
+          </div>
         </div>
+        <div class="project-card" tabindex="0">
+          <img src="https://via.placeholder.com/400x170.png?text=Data+Visualization+Dashboard" alt="Data Visualization Dashboard" loading="lazy" />
+          <div class="project-content">
+            <h3>Data Visualization Dashboard</h3>
+            <p>Created an interactive sales dashboard with Streamlit and Plotly to visualize trends and KPIs dynamically.</p>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <ul>
+        <li>Python</li>
+        <li>Machine Learning</li>
+        <li>Data Analysis</li>
+        <li>SQL</li>
+        <li>Streamlit</li>
+        <li>NLTK</li>
+        <li>Plotly</li>
+        <li>Git & GitHub</li>
+        <li>Excel</li>
+      </ul>
+    </section>
+
     <section id="contact">
-        <h2>Contact</h2>
-        <form action="https://formspree.io/f/mjvllvpr" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send</button>
-        </form>
+      <h2>Contact Me</h2>
+      <!-- Use Formspree for easy contact form handling -->
+      <form action="https://formspree.io/f/mnqlrgyj" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required autocomplete="name" />
+        <input type="email" name="_replyto" placeholder="Your Email" required autocomplete="email" />
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
     </section>
-    <footer>
-        <p>Connect with me:</p>
-        <a href="https://www.linkedin.com/in/abhilash-a-kotian/">LinkedIn</a> |
-        <a href="https://github.com/Abhilashkotian">GitHub</a> |
-        <a href="https://leetcode.com/u/ABHILASH_A_KOTIAN/">LeetCode</a>
-    </footer>
+  </main>
+
+  <footer>
+    &copy; 2025 Abhi. All rights reserved.
+  </footer>
+
 </body>
 </html>
