@@ -231,12 +231,22 @@
             gap: 3rem;
             flex-wrap: wrap;
         }
+        .about-left, .about-right {
+            opacity: 0;
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
         .about-left {
             flex: 1;
             max-width: 350px;
+            transform: translateX(-50px);
         }
         .about-right {
             flex: 2;
+            transform: translateX(50px);
+        }
+        section.visible .about-left, section.visible .about-right {
+            opacity: 1;
+            transform: translateX(0);
         }
         .about-img {
              width: 100%;
@@ -360,14 +370,57 @@
             display: block;
         }
 
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+        /* Skills & Carousel Section */
+        .carousel-container {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--card-color);
+            border-radius: 15px;
         }
+        .carousel-container h3 {
+            font-size: 1.8rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .carousel {
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            padding: 1rem;
+        }
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .carousel-button.prev { left: -25px; }
+        .carousel-button.next { right: -25px; }
         .badge-list {
-            display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin-top: 10px;
+            display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin-top: 10px; justify-content: center;
         }
         .badge-list li {
             background: var(--bg-color-end);
@@ -379,16 +432,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-        .cert-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        .cert-list li {
-            margin-bottom: 10px;
-        }
-        .cert-list strong {
-            color: white;
         }
         
         /* Contact */
@@ -427,6 +470,22 @@
             font-size: 0.9rem;
             color: rgba(224, 231, 255, 0.7);
         }
+        
+        /* Pop Up Effect on Hover */
+        .hover-effect-container {
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+        .hover-effect-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            background-color: var(--card-color);
+        }
+        .contact-card.hover-effect-container {
+            padding: 30px; /* Restore original padding for contact card */
+        }
+
 
         /* Responsive */
         @media (max-width: 1024px) {
@@ -445,6 +504,8 @@
             h2.section-title { font-size: 2.2rem; }
             .bottom-nav { padding: 8px 10px; gap: 8px; }
             .nav-link { font-size: 1.2rem; }
+            .carousel-button.prev { left: 5px; }
+            .carousel-button.next { right: 5px; }
         }
 
     </style>
@@ -477,7 +538,7 @@
 
 <!-- About Section -->
 <section id="about">
-    <div class="about-container">
+    <div class="about-container hover-effect-container">
         <div class="about-left">
             <img src="https://raw.githubusercontent.com/Abhilashkotian/github.io/main/kannur.jpg" alt="Abhilash Kotian" class="about-img">
         </div>
@@ -507,8 +568,8 @@
 
 <!-- Education Section -->
 <section id="education">
-    <h2 class="section-title">My <span>Education</span></h2>
-    <div class="card-grid">
+    <div class="card-grid hover-effect-container">
+        <h2 class="section-title">My <span>Education</span></h2>
         <div class="card">
             <h3>Alva’s Institute of Engineering and Technology</h3>
             <p>B.E. in Data Science (2022 - 2026)</p>
@@ -529,9 +590,9 @@
 
 <!-- Projects Section -->
 <section id="projects">
-    <h2 class="section-title"><span>My</span> Projects</h2>
-    <div class="projects-container">
+    <div class="projects-container hover-effect-container">
         <div class="projects-left">
+            <h2 class="section-title" style="text-align:left;"><span>My</span> Projects</h2>
             <p>All of my learning phases were associated with completing projects, as I believe that simply studying concepts can provide knowledge, but practical experience is crucial to fully understanding a topic. Here are some significant projects that I have completed.</p>
             <a href="#" class="btn primary mt-4">View All Projects</a>
         </div>
@@ -555,42 +616,66 @@
 <!-- Skills Section -->
 <section id="skills">
     <h2 class="section-title">Skills & <span>Certifications</span></h2>
-    <div class="skills-grid">
-        <div class="card">
-            <h3>Technical Skills</h3>
-            <p><strong>Programming Languages:</strong></p>
-            <ul class="badge-list">
-                <li><i class="fab fa-python"></i> Python</li>
-                <li><i class="fas fa-code"></i> C/C++</li>
-                <li><i class="fab fa-java"></i> Java</li>
-                <li><i class="fas fa-database"></i> SQL</li>
-                <li><i class="fab fa-js-square"></i> JavaScript</li>
-            </ul>
-            <p class="mt-4"><strong>Tools & Platforms:</strong></p>
-            <ul class="badge-list">
-                <li><i class="fab fa-git-alt"></i> Git</li>
-                <li><i class="fas fa-chart-bar"></i> Power BI</li>
-                <li><i class="fas fa-database"></i> MySQL</li>
-                <li><i class="fas fa-cloud"></i> Salesforce</li>
-            </ul>
+    <div id="skills-carousel" class="carousel-container hover-effect-container">
+        <h3>Technical Skills</h3>
+        <div class="carousel">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <p><strong>Programming Languages:</strong></p>
+                    <ul class="badge-list">
+                        <li><i class="fab fa-python"></i> Python</li>
+                        <li><i class="fas fa-code"></i> C/C++</li>
+                        <li><i class="fab fa-java"></i> Java</li>
+                        <li><i class="fas fa-database"></i> SQL</li>
+                        <li><i class="fab fa-js-square"></i> JavaScript</li>
+                    </ul>
+                </div>
+                <div class="carousel-slide">
+                    <p><strong>Tools & Platforms:</strong></p>
+                    <ul class="badge-list">
+                        <li><i class="fab fa-git-alt"></i> Git</li>
+                        <li><i class="fas fa-chart-bar"></i> Power BI</li>
+                        <li><i class="fas fa-database"></i> MySQL</li>
+                        <li><i class="fas fa-cloud"></i> Salesforce</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="card">
-            <h3>Certifications</h3>
-            <ul class="cert-list">
-                <li><strong>NPTEL:</strong> Problem Solving in C, IoT</li>
-                <li><strong>Infosys:</strong> AI, Data Science</li>
-                <li><strong>Coursera:</strong> Generative AI</li>
-                <li><strong>Forage:</strong> Data Science (British Airways), Data Viz (Tata)</li>
-            </ul>
-            <a href="https://drive.google.com/drive/folders/1ZqCP7KMqX9RF3QR9dHwbcWidWWYMTcpc?usp=sharing" target="_blank" class="btn primary mt-4">View All Certificates</a>
+        <button class="carousel-button prev">&lt;</button>
+        <button class="carousel-button next">&gt;</button>
+    </div>
+
+    <div id="certs-carousel" class="carousel-container hover-effect-container" style="margin-top: 2rem;">
+        <h3>Certifications</h3>
+        <div class="carousel">
+            <div class="carousel-track">
+                <div class="carousel-slide">
+                    <img src="https://drive.google.com/uc?export=view&id=1DL56s1mPN_ftnjVXBVRvsN14-Gv2bv9Z" alt="Certificate 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://drive.google.com/uc?export=view&id=1V7QsO1kgDko9Pego6HxRdz-UckHon2Le" alt="Certificate 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://drive.google.com/uc?export=view&id=1_F6jkE9xuq6xuqmtuA2fVRnt3yPWz5F-" alt="Certificate 3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://drive.google.com/uc?export=view&id=170Pm2t40f7aquUv-pi1csm43kaOB2LII" alt="Certificate 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="https://drive.google.com/uc?export=view&id=1aO3_qRZ8IeJNNd8fr2G3GtD_XKJ1H8Dz" alt="Certificate 5">
+                </div>
+            </div>
         </div>
+        <a href="https://drive.google.com/drive/folders/1ZqCP7KMqX9RF3QR9dHwbcWidWWYMTcpc?usp=sharing" target="_blank" class="btn primary mt-4" style="display: table; margin: 1rem auto 0;">View All Certificates</a>
+        <button class="carousel-button prev">&lt;</button>
+        <button class="carousel-button next">&gt;</button>
     </div>
 </section>
 
 <!-- Contact Section -->
 <section id="contact">
-    <h2 class="section-title">Let's <span>Connect</span></h2>
-    <div class="card contact-card">
+    <div class="card contact-card hover-effect-container">
+        <h2 class="section-title">Let's <span>Connect</span></h2>
         <h3>Find me on</h3>
         <div class="social-links">
             <a href="https://github.com/Abhilashkotian/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
@@ -656,7 +741,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
 
-                // Stagger card animations
                 const cards = entry.target.querySelectorAll('.card');
                 cards.forEach((card, index) => {
                     card.style.transitionDelay = `${index * 150}ms`;
@@ -674,7 +758,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section');
 
     window.addEventListener('scroll', () => {
-        let current = 'home'; // Default to home
+        let current = 'home';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             if (pageYOffset >= sectionTop - 150) {
@@ -689,6 +773,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    
+    // --- Carousel Logic ---
+    function setupCarousel(carouselId) {
+        const carouselContainer = document.getElementById(carouselId);
+        if (!carouselContainer) return;
+
+        const track = carouselContainer.querySelector('.carousel-track');
+        const slides = Array.from(track.children);
+        const nextButton = carouselContainer.querySelector('.next');
+        const prevButton = carouselContainer.querySelector('.prev');
+        
+        if (slides.length <= 1) {
+            nextButton.style.display = 'none';
+            prevButton.style.display = 'none';
+            return;
+        }
+
+        let currentIndex = 0;
+
+        const moveToSlide = (targetIndex) => {
+            track.style.transform = 'translateX(-' + 100 * targetIndex + '%)';
+            currentIndex = targetIndex;
+        }
+
+        nextButton.addEventListener('click', e => {
+            const nextIndex = (currentIndex + 1) % slides.length;
+            moveToSlide(nextIndex);
+        });
+
+        prevButton.addEventListener('click', e => {
+            let prevIndex = currentIndex - 1;
+            if (prevIndex < 0) {
+                prevIndex = slides.length - 1;
+            }
+            moveToSlide(prevIndex);
+        });
+    }
+
+    setupCarousel('skills-carousel');
+    setupCarousel('certs-carousel');
 
 });
 </script>
