@@ -16,6 +16,7 @@
             --secondary-color: #4338ca;
             --text-color: #e0e7ff;
             --card-color: rgba(49, 46, 129, 0.5);
+            --gradient-text: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
         }
 
         * {
@@ -103,13 +104,21 @@
         h2.section-title {
             font-size: 2.8rem;
             color: #fff;
-            margin-bottom: 50px;
+            margin-bottom: 1rem;
             text-align: center;
             font-weight: 700;
         }
         
         h2.section-title span {
-            color: var(--primary-color);
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            margin-bottom: 3rem;
         }
 
         /* Hero Section */
@@ -170,6 +179,15 @@
             font-weight: 600;
             text-decoration: none;
             margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            border-radius: 25px;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
 
@@ -309,81 +327,134 @@
             box-shadow: 0 0 20px var(--primary-color);
         }
 
-        /* Card styles */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+        /* Education Timeline */
+        .education-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        .card {
-            background: var(--card-color);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(192, 38, 211, 0.2);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        .education-timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-image: var(--gradient-text);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        .education-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
             opacity: 0;
-            transform: translateY(30px);
+            transition: opacity 0.6s 0.2s, transform 0.6s 0.2s;
         }
-        section.visible .card {
+        .education-item:nth-child(odd) { 
+            left: 0; 
+            transform: translateX(-30px);
+        }
+        .education-item:nth-child(even) { 
+            left: 50%; 
+            transform: translateX(30px);
+        }
+        section.visible .education-item {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateX(0);
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(192, 38, 211, 0.2);
+        .education-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--primary-color);
+            border: 4px solid var(--secondary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
         }
-        .card h3 {
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 15px;
+        .education-item:nth-child(even)::after { left: -10px; }
+        .education-content {
+            padding: 20px 30px;
+            background: var(--card-color);
+            position: relative;
+            border-radius: 10px;
         }
-
+        
         /* Projects Section */
-        .projects-container {
-            display: flex;
-            gap: 3rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .projects-left {
-            flex: 1;
-        }
-        .projects-right {
-            flex: 1.5;
+        .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+            gap: 2rem;
         }
-        .project-image-container {
+        .project-card {
+            background: var(--card-color);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .project-image-container:hover {
-            transform: scale(1.05);
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
-        .project-image-container img {
+        .project-image img {
             width: 100%;
-            height: 100%;
+            height: 250px;
             object-fit: cover;
-            display: block;
+        }
+        .project-content {
+            padding: 1.5rem;
+        }
+        .project-content h3 {
+            font-size: 1.5rem;
+            color: white;
+        }
+        .project-content p {
+            margin: 1rem 0;
+        }
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .tech-tag {
+            background: var(--bg-color-end);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
         }
 
-        /* Skills & Carousel Section */
+        /* Skills & Certs Section */
+        .skills-section {
+            background: var(--card-color);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+        .skills-section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+        .skill-tag {
+            background: var(--bg-color-end);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
         .carousel-container {
             position: relative;
             max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--card-color);
-            border-radius: 15px;
-        }
-        .carousel-container h3 {
-            font-size: 1.8rem;
-            color: white;
-            text-align: center;
-            margin-bottom: 1.5rem;
+            margin: 0 auto;
         }
         .carousel {
             position: relative;
@@ -419,46 +490,72 @@
         }
         .carousel-button.prev { left: -25px; }
         .carousel-button.next { right: -25px; }
-        .badge-list {
-            display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin-top: 10px; justify-content: center;
+        
+        /* Contact Section */
+        .contact-content {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            background: var(--card-color);
+            padding: 2rem;
+            border-radius: 15px;
         }
-        .badge-list li {
-            background: var(--bg-color-end);
-            color: var(--primary-color);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
+        .contact-info {
+            flex: 1;
+            min-width: 280px;
+        }
+        .contact-form {
+            flex: 1.5;
+            min-width: 300px;
+        }
+        .contact-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--secondary-color);
+            background: var(--bg-color-end);
+            color: var(--text-color);
         }
         
-        /* Contact */
-        .contact-card {
-            max-width: 700px;
-            margin: 0 auto;
+        /* Resume Section */
+        .resume-content {
             text-align: center;
         }
-        .contact-buttons {
+        .resume-buttons {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
+            margin-top: 2rem;
             flex-wrap: wrap;
         }
-        .social-links {
-            display: flex;
+        .resume-buttons .btn {
+            padding: 12px 28px;
+            font-size: 1.1rem;
+        }
+        #resume .social-links a {
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-        .social-links a {
-            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 2rem;
+            background-color: var(--card-color);
             color: var(--text-color);
-            transition: color 0.3s, transform 0.3s;
+            transition: all 0.3s ease;
         }
-        .social-links a:hover {
-            color: var(--primary-color);
+        #resume .social-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
             transform: scale(1.1);
         }
         
@@ -482,15 +579,11 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             background-color: var(--card-color);
         }
-        .contact-card.hover-effect-container {
-            padding: 30px; /* Restore original padding for contact card */
-        }
-
 
         /* Responsive */
         @media (max-width: 1024px) {
             header, section { padding-left: 5%; padding-right: 5%; }
-            .hero, .projects-container { flex-direction: column-reverse; text-align: center; }
+            .hero { flex-direction: column-reverse; text-align: center; }
             .hero-left, .hero-right { max-width: 100%; }
             .hero-left h1 { font-size: 3rem; }
             .decorative-line { display: none; }
@@ -500,7 +593,11 @@
             .hero-right { margin-top: 2rem; }
             .about-container { flex-direction: column; text-align: center; }
             .about-stats { justify-content: center; }
-            .projects-right { grid-template-columns: 1fr; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .education-timeline::after { left: 10px; }
+            .education-item { width: 100%; padding-left: 40px; padding-right: 10px; }
+            .education-item:nth-child(even) { left: 0%; }
+            .education-item::after { left: 1px; }
             h2.section-title { font-size: 2.2rem; }
             .bottom-nav { padding: 8px 10px; gap: 8px; }
             .nav-link { font-size: 1.2rem; }
@@ -568,46 +665,66 @@
 
 <!-- Education Section -->
 <section id="education">
-    <div class="card-grid hover-effect-container">
+    <div class="hover-effect-container">
         <h2 class="section-title">My <span>Education</span></h2>
-        <div class="card">
-            <h3>Alva’s Institute of Engineering and Technology</h3>
-            <p>B.E. in Data Science (2022 - 2026)</p>
-            <p class="mt-2 text-sm text-gray-400">Coursework: Data Science, NLP, Machine Learning, DSA</p>
-        </div>
-        <div class="card">
-            <h3>Vikaas Pre-University College</h3>
-            <p>PUC - PCMB (2020 - 2022)</p>
-            <p class="mt-2 text-sm text-gray-400">Percentage: 87%</p>
-        </div>
-         <div class="card">
-            <h3>Popular Bunts English Medium High School</h3>
-            <p>SSLC (2018 - 2020)</p>
-            <p class="mt-2 text-sm text-gray-400">Percentage: 95%</p>
+        <div class="education-timeline">
+            <div class="education-item">
+                <div class="education-content">
+                    <h3>Alva’s Institute of Engineering and Technology</h3>
+                    <h4>B.E. in Data Science (2022 - 2026)</h4>
+                    <p>Coursework: Data Science, NLP, Machine Learning, DSA</p>
+                </div>
+            </div>
+            <div class="education-item">
+                <div class="education-content">
+                    <h3>Vikaas Pre-University College</h3>
+                    <h4>PUC - PCMB (2020 - 2022)</h4>
+                    <p>Percentage: 87%</p>
+                </div>
+            </div>
+            <div class="education-item">
+                <div class="education-content">
+                    <h3>Popular Bunts English Medium High School</h3>
+                    <h4>SSLC (2018 - 2020)</h4>
+                    <p>Percentage: 95%</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
 <!-- Projects Section -->
 <section id="projects">
-    <div class="projects-container hover-effect-container">
-        <div class="projects-left">
-            <h2 class="section-title" style="text-align:left;"><span>My</span> Projects</h2>
-            <p>All of my learning phases were associated with completing projects, as I believe that simply studying concepts can provide knowledge, but practical experience is crucial to fully understanding a topic. Here are some significant projects that I have completed.</p>
-            <a href="#" class="btn primary mt-4">View All Projects</a>
+    <h2 class="section-title">My <span>Projects</span></h2>
+    <p class="section-subtitle">A showcase of my recent work and personal projects</p>
+    <div class="projects-grid">
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://raw.githubusercontent.com/Abhilashkotian/portfolio/main/placement%20syystem.jpg" alt="Placement Management System">
+            </div>
+            <div class="project-content">
+                <h3>Placement Management System</h3>
+                <p>A system for departments to manage placement drives, monitor student progress, and assist students via a chatbot. Includes OCR integration to scan and auto-upload academic scores.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Firebase</span>
+                    <span class="tech-tag">Chatbot API</span>
+                    <span class="tech-tag">OCR</span>
+                </div>
+            </div>
         </div>
-        <div class="projects-right">
-            <div class="project-image-container">
-                <img src="https://raw.githubusercontent.com/Abhilashkotian/github.io/main/project1.jpg" alt="Project 1">
+        <div class="project-card">
+            <div class="project-image">
+                <img src="https://raw.githubusercontent.com/Abhilashkotian/portfolio/main/hdd.jpeg" alt="Heart Disease Diagnosis System">
             </div>
-            <div class="project-image-container">
-                <img src="https://raw.githubusercontent.com/Abhilashkotian/github.io/main/project2.jpg" alt="Project 2">
-            </div>
-            <div class="project-image-container">
-                <img src="https://raw.githubusercontent.com/Abhilashkotian/github.io/main/project1.jpg" alt="Project 3">
-            </div>
-            <div class="project-image-container">
-                <img src="https://raw.githubusercontent.com/Abhilashkotian/github.io/main/project2.jpg" alt="Project 4">
+            <div class="project-content">
+                <h3>Heart Disease Diagnosis System</h3>
+                <p>ML model to predict heart disease risk using clinical data and classification algorithms. Visualized health indicators and evaluated model performance.</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Scikit-learn</span>
+                    <span class="tech-tag">Pandas</span>
+                </div>
             </div>
         </div>
     </div>
@@ -615,38 +732,56 @@
 
 <!-- Skills Section -->
 <section id="skills">
-    <h2 class="section-title">Skills & <span>Certifications</span></h2>
-    <div id="skills-carousel" class="carousel-container hover-effect-container">
-        <h3>Technical Skills</h3>
-        <div class="carousel">
-            <div class="carousel-track">
-                <div class="carousel-slide">
-                    <p><strong>Programming Languages:</strong></p>
-                    <ul class="badge-list">
-                        <li><i class="fab fa-python"></i> Python</li>
-                        <li><i class="fas fa-code"></i> C/C++</li>
-                        <li><i class="fab fa-java"></i> Java</li>
-                        <li><i class="fas fa-database"></i> SQL</li>
-                        <li><i class="fab fa-js-square"></i> JavaScript</li>
-                    </ul>
+    <div class="hover-effect-container">
+        <h2 class="section-title"><span>Technical</span> Skills</h2>
+        <div class="skills-section">
+            <div class="skill-category">
+                <h4>Programming Languages:</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+                    <span class="skill-tag"><i class="fas fa-code"></i> C/C++</span>
+                    <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+                    <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+                    <span class="skill-tag"><i class="fab fa-js-square"></i> JavaScript</span>
                 </div>
-                <div class="carousel-slide">
-                    <p><strong>Tools & Platforms:</strong></p>
-                    <ul class="badge-list">
-                        <li><i class="fab fa-git-alt"></i> Git</li>
-                        <li><i class="fas fa-chart-bar"></i> Power BI</li>
-                        <li><i class="fas fa-database"></i> MySQL</li>
-                        <li><i class="fas fa-cloud"></i> Salesforce</li>
-                    </ul>
+            </div>
+            <div class="skill-category" style="margin-top: 1.5rem;">
+                <h4>Tools & Platforms:</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+                    <span class="skill-tag"><i class="fas fa-chart-bar"></i> Power BI</span>
+                    <span class="skill-tag"><i class="fas fa-database"></i> MySQL</span>
+                    <span class="skill-tag"><i class="fas fa-cloud"></i> Salesforce</span>
+                    <span class="skill-tag">MongoDB</span>
+                    <span class="skill-tag">Tableau</span>
+                    <span class="skill-tag">Excel</span>
+                    <span class="skill-tag">ServiceNow</span>
+                </div>
+            </div>
+            <div class="skill-category" style="margin-top: 1.5rem;">
+                <h4>Soft Skills:</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Communication</span>
+                    <span class="skill-tag">Teamwork</span>
+                    <span class="skill-tag">Problem-Solving</span>
+                </div>
+            </div>
+            <div class="skill-category" style="margin-top: 1.5rem;">
+                <h4>Languages Known:</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">English – Fluent</span>
+                    <span class="skill-tag">Hindi – Fluent</span>
+                    <span class="skill-tag">Kannada – Native</span>
                 </div>
             </div>
         </div>
-        <button class="carousel-button prev">&lt;</button>
-        <button class="carousel-button next">&gt;</button>
     </div>
+</section>
 
-    <div id="certs-carousel" class="carousel-container hover-effect-container" style="margin-top: 2rem;">
-        <h3>Certifications</h3>
+<!-- Certifications Section -->
+<section id="certifications">
+    <div id="certs-carousel" class="carousel-container hover-effect-container">
+        <h2 class="section-title">My <span>Certifications</span></h2>
         <div class="carousel">
             <div class="carousel-track">
                 <div class="carousel-slide">
@@ -669,7 +804,7 @@
                 </div>
             </div>
         </div>
-        <a href="https://drive.google.com/drive/folders/1ZqCP7KMqX9RF3QR9dHwbcWidWWYMTcpc?usp=sharing" target="_blank" class="btn primary mt-4" style="display: table; margin: 1rem auto 0;">View All Certificates</a>
+        <a href="https://drive.google.com/drive/folders/1ZqCP7KMqX9RF3QR9dHwbcWidWWYMTcpc?usp=sharing" target="_blank" class="btn primary" style="display: table; margin: 1rem auto 0;">View All Certificates</a>
         <button class="carousel-button prev">&lt;</button>
         <button class="carousel-button next">&gt;</button>
     </div>
@@ -677,15 +812,56 @@
 
 <!-- Contact Section -->
 <section id="contact">
-    <div class="card contact-card hover-effect-container">
-        <h2 class="section-title">Let's <span>Connect</span></h2>
-        <h3>Find me on</h3>
+    <div class="hover-effect-container">
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <p class="section-subtitle">Let's work together to create something amazing.</p>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Let's Connect</h3>
+                <p>I'm always interested in hearing about new opportunities and exciting projects. Whether you have a question, feel free to reach out!</p>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>Abhilashkotian08@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <p>+91 12345 67890</p>
+                </div>
+                 <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Mangalore, Karnataka</p>
+                </div>
+            </div>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" placeholder="Name" required>
+                </div>
+                 <div class="form-group">
+                    <input type="email" placeholder="Email" required>
+                </div>
+                 <div class="form-group">
+                    <input type="text" placeholder="Subject" required>
+                </div>
+                 <div class="form-group">
+                    <textarea rows="5" placeholder="Message" required></textarea>
+                </div>
+                <button type="submit" class="btn primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Resume Section -->
+<section id="resume">
+    <div class="hover-effect-container resume-content">
+        <h2 class="section-title">My <span>Resume</span></h2>
+        <p class="section-subtitle">Download or view my complete professional resume</p>
         <div class="social-links">
-            <a href="https://github.com/Abhilashkotian/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+             <a href="https://github.com/Abhilashkotian/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://www.linkedin.com/in/abhilash-a-kotian/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
             <a href="mailto:Abhilashkotian08@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
         </div>
-        <div class="contact-buttons">
+        <div class="resume-buttons">
             <a href="https://drive.google.com/file/d/1VGQ_00eXEOcczifqBU0AM-yEyIvi5UyK/view" target="_blank" class="btn secondary">View Resume</a>
             <a href="https://drive.google.com/uc?export=download&id=1VGQ_00eXEOcczifqBU0AM-yEyIvi5UyK" class="btn primary">Download Resume</a>
         </div>
@@ -704,7 +880,9 @@
     <a href="#education" class="nav-link"><i class="fas fa-graduation-cap"></i></a>
     <a href="#projects" class="nav-link"><i class="fas fa-briefcase"></i></a>
     <a href="#skills" class="nav-link"><i class="fas fa-cogs"></i></a>
+    <a href="#certifications" class="nav-link"><i class="fas fa-award"></i></a>
     <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i></a>
+    <a href="#resume" class="nav-link"><i class="fas fa-file-alt"></i></a>
 </nav>
 
 <script>
@@ -743,11 +921,6 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-
-                const cards = entry.target.querySelectorAll('.card');
-                cards.forEach((card, index) => {
-                    card.style.transitionDelay = `${index * 150}ms`;
-                });
             }
         });
     }, { threshold: 0.1 });
@@ -788,8 +961,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevButton = carouselContainer.querySelector('.prev');
         
         if (slides.length <= 1) {
-            nextButton.style.display = 'none';
-            prevButton.style.display = 'none';
+            if(nextButton) nextButton.style.display = 'none';
+            if(prevButton) prevButton.style.display = 'none';
             return;
         }
 
@@ -800,21 +973,22 @@ document.addEventListener('DOMContentLoaded', () => {
             currentIndex = targetIndex;
         }
 
-        nextButton.addEventListener('click', e => {
-            const nextIndex = (currentIndex + 1) % slides.length;
-            moveToSlide(nextIndex);
-        });
+        if(nextButton && prevButton){
+            nextButton.addEventListener('click', e => {
+                const nextIndex = (currentIndex + 1) % slides.length;
+                moveToSlide(nextIndex);
+            });
 
-        prevButton.addEventListener('click', e => {
-            let prevIndex = currentIndex - 1;
-            if (prevIndex < 0) {
-                prevIndex = slides.length - 1;
-            }
-            moveToSlide(prevIndex);
-        });
+            prevButton.addEventListener('click', e => {
+                let prevIndex = currentIndex - 1;
+                if (prevIndex < 0) {
+                    prevIndex = slides.length - 1;
+                }
+                moveToSlide(prevIndex);
+            });
+        }
     }
 
-    setupCarousel('skills-carousel');
     setupCarousel('certs-carousel');
 
 });
