@@ -426,6 +426,20 @@
             border-radius: 15px;
             font-size: 0.8rem;
         }
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            align-items: center;
+        }
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
 
         /* Skills & Certs Section */
         .skills-section {
@@ -583,7 +597,7 @@
         /* Responsive */
         @media (max-width: 1024px) {
             header, section { padding-left: 5%; padding-right: 5%; }
-            .hero { flex-direction: column-reverse; text-align: center; }
+            .hero, .projects-container { flex-direction: column-reverse; text-align: center; }
             .hero-left, .hero-right { max-width: 100%; }
             .hero-left h1 { font-size: 3rem; }
             .decorative-line { display: none; }
@@ -622,7 +636,7 @@
         <p class="description">This is Abhilash, a self-driven and motivated learner who is adept in software technologies and developing products. I am proficient in grasping new technical concepts and utilizing them in an efficient way. I aspire to become an SDE and also interested in Data Analysis.</p>
         <div class="hero-buttons">
             <a href="#contact" class="btn primary">Contact me</a>
-            <a href="#projects" class="btn secondary">My Portfolio</a>
+            <a href="#resume" class="btn secondary">My Resume</a>
         </div>
     </div>
     <div class="hero-right">
@@ -711,6 +725,9 @@
                     <span class="tech-tag">Chatbot API</span>
                     <span class="tech-tag">OCR</span>
                 </div>
+                 <div class="project-links">
+                    <span class="project-link">Ongoing</span>
+                </div>
             </div>
         </div>
         <div class="project-card">
@@ -724,6 +741,12 @@
                     <span class="tech-tag">Python</span>
                     <span class="tech-tag">Scikit-learn</span>
                     <span class="tech-tag">Pandas</span>
+                </div>
+                <div class="project-links">
+                    <span class="project-link">Completed</span>
+                    <a href="https://github.com/Abhilashkotian/Heart-Disease-diagnosis-using-ML" class="project-link" target="_blank">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
                 </div>
             </div>
         </div>
@@ -825,7 +848,7 @@
                 </div>
                 <div class="contact-item">
                     <i class="fas fa-phone"></i>
-                    <p>+91 12345 67890</p>
+                    <p>+91 9901170203</p>
                 </div>
                  <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
